@@ -1,7 +1,7 @@
 import streamlit as st
 
 # Define the path to your image
-image_path = 'coal_mine.png'
+image_path = 'coal_mine1.png'
 
 # Display the image using the st.image function
 image = st.image(image_path, use_column_width=True)
