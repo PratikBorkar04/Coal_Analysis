@@ -1,4 +1,6 @@
 import streamlit as st
+import pandas as pd
+import altair as alt
 
 # Define the path to your image
 image_path = 'coal_mine1.png'
@@ -15,13 +17,10 @@ st.markdown(
             height: 35vh; /* Adjust the percentage height as needed */
             object-fit: contain;
         }}
-        .centered {{
-            text-align: center;
-            margin-top: 20px; /* Adjust the top margin as needed */
-        }}
     </style>
-    """
-, unsafe_allow_html=True)
+    """,
+    unsafe_allow_html=True
+)
 
 # Set title
 st.subheader("Coal Mine Analysis")
@@ -29,8 +28,16 @@ st.subheader("Coal Mine Analysis")
 # Create two columns for select boxes
 col1, col2 = st.columns(2)
 
-Mine_list = ['Rajmahal Coal Mines', 'Raniganj Coalfield', 'Korba Coalfield', 'Talcher Coalfield', 'Singareni Collieries', 'Neyveli Lignite Corporation', 'Wardha Valley Coalfield', 'Margherita Coalfield','Jaintia Hills','Sohagpur Coalfield']
-year_list = ['2012-13', '2013-14', '2014-15', '2015-16', '2016-17', '2017-18','2018-19','2019-20','2020-21','2021-22']
+Mine_list = [
+    "Financial Analysis", 'Rajmahal Coal Mines', 'Raniganj Coalfield', 'Korba Coalfield', 
+    'Talcher Coalfield', 'Singareni Collieries', 'Neyveli Lignite Corporation', 
+    'Wardha Valley Coalfield', 'Margherita Coalfield', 'Jaintia Hills', 'Sohagpur Coalfield'
+]
+
+year_list = [
+    'All (2012-22)', '2012-13', '2013-14', '2014-15', '2015-16', '2016-17', '2017-18', 
+    '2018-19', '2019-20', '2020-21', '2021-22'
+]
 
 # Dropdowns in separate columns
 with col1:
@@ -39,9 +46,43 @@ with col1:
 with col2:
     result2 = st.selectbox("**Select Financial Year**", year_list)
 
-
 # Align the button in the middle
 st.markdown("<div class='centered'> </div>", unsafe_allow_html=True)
+
 button_col = st.columns([8, 8, 3])
 with button_col[1]:
-    st.button("Analyse", type="primary", help="Click to analyze", key="analyse_button")
+    if st.button("Analyse", type="primary", help="Click to analyze", key="analyse_button"):
+        if result1 == "Financial Analysis" and result2 == 'All (2012-22)':
+            # Chart 1: Coal Production
+            st.subheader('**Coal Production**')
+            source_production = pd.DataFrame({
+                'Year': ['2012-13', '2013-14', '2014-15', '2015-16', '2016-17', '2017-18', '2018-19', '2019-20', '2020-21', '2021-22'],
+                'Glance': [567, 572, 603, 632, 645, 690, 732, 707, 690, 819]  # Assuming 'Glance' is quantitative
+            })
+
+            bar_chart_production = alt.Chart(source_production).mark_bar().encode(
+                x='Year:O',  # Categorical variable on x-axis
+                y='Glance:Q'  # Quantitative variable on y-axis
+            ).properties(
+                width=600,  # Set the width of the chart
+                height=400  # Set the height of the chart
+            )
+
+            st.altair_chart(bar_chart_production, use_container_width=True)
+
+            # Chart 2: Coal Dispatch
+            st.subheader('**Coal Dispatch**')
+            source_dispatch = pd.DataFrame({
+                'Year': ['2012-13', '2013-14', '2014-15', '2015-16', '2016-17', '2017-18', '2018-19', '2019-20', '2020-21', '2021-22'],
+                'Dispatch': [450, 490, 520, 570, 590, 620, 640, 670, 690, 700]  # Assuming 'Dispatch' is quantitative
+            })
+
+            bar_chart_dispatch = alt.Chart(source_dispatch).mark_bar().encode(
+                x='Year:O',  # Categorical variable on x-axis
+                y='Dispatch:Q'  # Quantitative variable on y-axis
+            ).properties(
+                width=600,  # Set the width of the chart
+                height=400  # Set the height of the chart
+            )
+
+            st.altair_chart(bar_chart_dispatch, use_container_width=True)
