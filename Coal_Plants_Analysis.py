@@ -49,7 +49,7 @@ with col2:
 # Align the button in the middle
 st.markdown("<div class='centered'> </div>", unsafe_allow_html=True)
 
-button_col = st.columns([1, 8, 3])
+button_col = st.columns([2, 8, 3])
 with button_col[1]:
     if st.button("Analyse", type="primary", help="Click to analyze", key="analyse_button"):
         if result1 == "Financial Analysis" and result2 == 'All (2012-22)':
