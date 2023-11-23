@@ -55,9 +55,11 @@ with button_col[1]:
         if result1 == "Financial Analysis" and result2 == 'All (2012-22)':
             # Chart 1: Coal Production
             st.subheader('**Coal Production**')
+            st.write('During 2022-23 (up to Dec.22) actual Raw Coal Production is 607.295 Million Tonnes (MT) against the
+Annual production Target of 911.00 MT')
             source_production = pd.DataFrame({
                 'Year': ['2012-13', '2013-14', '2014-15', '2015-16', '2016-17', '2017-18', '2018-19', '2019-20', '2020-21', '2021-22'],
-                'Glance': [567, 572, 603, 632, 645, 690, 732, 707, 690, 819]  # Assuming 'Glance' is quantitative
+                'Glance': [556, 565, 609, 639, 657, 675, 732, 728, 730, 716]  # Assuming 'Glance' is quantitative
             })
 
             bar_chart_production = alt.Chart(source_production).mark_bar().encode(
@@ -72,9 +74,11 @@ with button_col[1]:
 
             # Chart 2: Coal Dispatch
             st.subheader('**Coal Dispatch**')
+            st.write('During 2022-23 (up to Dec.22) actual Raw Coal dispatched is 637.241 MT against the Annual Target of 911.00
+MT.')
             source_dispatch = pd.DataFrame({
                 'Year': ['2012-13', '2013-14', '2014-15', '2015-16', '2016-17', '2017-18', '2018-19', '2019-20', '2020-21', '2021-22'],
-                'Dispatch': [450, 490, 520, 570, 590, 620, 640, 670, 690, 700]  # Assuming 'Dispatch' is quantitative
+                'Dispatch': [567, 572, 603, 632, 645, 690, 732, 707, 690, 819]  # Assuming 'Glance' is quantitative
             })
 
             bar_chart_dispatch = alt.Chart(source_dispatch).mark_bar().encode(
